@@ -1,0 +1,9 @@
+.selected {
+  background-color: burlywood;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {list-style: none;}

@@ -1,0 +1,22 @@
+<h2>Galería</h2>
+<div>
+  <img [src]="imagenSeleccionada" [width]="width">
+</div>
+
+<div>
+  <button [disabled]="index==0" (click)="anterior();">Anterior</button>
+  <button [disabled]="index==maxIndex" (click)="siguiente();">Siguiente</button>
+  <button (click)="aumentar();">Aumentar</button>
+  <button (click)="disminuir();">Disminuir</button>
+  <button *ngIf="!isPlaying" (click)="play();">Play</button>
+  <button *ngIf="isPlaying" (click)="stop();">Stop</button>
+</div>
+
+<div>
+  <span>Anterior</span>
+  <img *ngFor="let imagen of imagenes | slice:ini:fin; let i=index" width="80" height="80"
+      (click)="seleccionarImagen(i);"
+      [class.seleccionada]="i==index"
+      [src]="imagen" >
+  <span>Siguiente</span>
+</div>

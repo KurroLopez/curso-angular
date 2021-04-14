@@ -1,0 +1,12 @@
+<p>pipes works!</p>
+
+<p>{{number1 | currency: 'EUR'}}</p>
+<p>{{number2 | percent}}</p>
+<p>{{name | uppercase}}</p>
+<p>{{date | date:'dd-mm-yyyy'}} </p>
+
+<p>{{ number1 | exp:3 | number }}</p>
+
+<li *ngFor="let user of users | minAge:16">
+  {{ user.name }} - {{ user.age }}
+</li>

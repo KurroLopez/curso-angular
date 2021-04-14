@@ -1,0 +1,8 @@
+<span appHighlight="green" duration="10" *ngIf="userName">Hola, {{userName + lastName}} </span>
+<input [value]="userName" (keyup)="cambiarNombre($event);"/>
+
+<input rotate="10" step="45"  appHighlight="orange" [(ngModel)]="userName"/>
+<button (click)="cambiarNombreGuillermo($event);">Cambiar nombre</button>
+
+
+<img rotate src="http://placekitten.com/g/200/300"/>
