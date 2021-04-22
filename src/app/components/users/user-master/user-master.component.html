@@ -36,7 +36,8 @@
         <div class="col-3">{{user.name}}</div>
         <div class="col-3">{{user.email}}</div>
         <div class="col-3">{{user.phone}}</div>
-        <div class="col-1"><button class="btn btn-danger" (click)="delUsuario(user.id!)"> X </button></div>
+        <div class="col-1"><button class="btn btn-danger" (click)="delUsuario(user.id!)"> X </button>
+        <button class="btn btn-danger" (click)="goToEdit(user.id!)"> Editar </button></div>
       </ng-container>
     </div>
   </div>

@@ -1,21 +1,33 @@
 <div>
   <h1>User Form</h1>
+  <div [hidden]="!userForm.submitted">
+    <h2>¡Gracias!</h2>
+  </div>
+
+
   {{user | json}}
-  <form>
+  <form (ngSubmit)="onSubmit(userForm);" #userForm="ngForm">
+    {{ userForm.errors | json}}
     <div>
       <label for="name">Name: </label>
-      <input type="text" id="name" name="name" #name required [(ngModel)]='user.name'>
-      <p>{{name.className}}</p>
+      <input type="text" id="name" name="name" #name="ngModel" required [(ngModel)]='user.name'>
+      <div class="alert alert-danger" *ngIf="name.invalid && name.touched">El campo es obligatorio</div>
     </div>
 
     <div>
       <label for="username">Username: </label>
-      <input class="" type="text" id="username" name="username" required [(ngModel)]='user.username'>
+      <input type="text" id="username" #username="ngModel" name="username" minlength="6" required [(ngModel)]='user.username'>
+      {{username.errors | json}}
+      <div *ngIf="username.errors && username.touched">
+        <div class="alert alert-danger" *ngIf="username.errors?.required">El campo es obligatorio.</div>
+        <div class="alert alert-danger" *ngIf="username.errors?.minlength">El campo debe tener {{username.errors?.minlength.requiredLength}} caracteres al menos.</div>
+      </div>
     </div>
 
     <div>
       <label for="email">Email: </label>
-      <input type="email" id="email" name="email" [(ngModel)]='user.email'>
+      <input type="email" id="email" name="email" #email="ngModel" email [(ngModel)]='user.email'>
+      <div class="alert alert-danger" *ngIf="email.invalid">El email es inválido</div>
     </div>
 
     <h4>Address</h4>
@@ -37,7 +49,7 @@
       </div>
     </div>
 
-    <button type="submit">Submit</button>
-
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+    <button type="button" (click)="goToUserList();">Volver al listado</button>
   </form>
 </div>

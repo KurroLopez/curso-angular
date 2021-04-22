@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -9,16 +10,24 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UserMasterComponent implements OnInit {
 
-  users: User[];
+  users: User[] = [];
   newUser: User;
   selectedUser: User;
   nextId = 11;
   ocultarSinTelefono: boolean = false;
+  loading = false;
 
-  constructor(service: UsersService) {
+  constructor(service: UsersService, private router: Router) {
     this.selectedUser = new User();
     this.newUser = new User();
-    this.users = service.getUsers();
+    this.loading = true;
+    service.getUsers().subscribe(
+      (serverResponse: User[]) => {
+        this.users = serverResponse;
+        this.loading = false;
+      }
+    );
+    const num = this.users.length;
    }
 
   ngOnInit(): void {
@@ -50,6 +59,10 @@ export class UserMasterComponent implements OnInit {
       }
       return el;
     });
+  }
+
+  goToEdit(id: number){
+    this.router.navigate(['/form-template/'+id]);
   }
 
 }

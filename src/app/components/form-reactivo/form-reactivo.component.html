@@ -1,0 +1,51 @@
+
+<div>
+  <h2>Formulario reactivo</h2>
+  <pre>
+  {{user | json}}
+  {{ userForm.value | json }}
+</pre>
+  <form [formGroup]="userForm">
+    <div>
+      <label for="name">Name: </label>
+      <input type="text" id="name" name="name" formControlName="name">
+      <p *ngIf="userForm.get('name')!.invalid">El nombre es obligatorio</p>
+    </div>
+
+    <div>
+      <label for="username">Username: </label>
+      <input type="text" id="username" name="username" formControlName="username">
+      <div *ngIf="userForm.get('username')!.errors && userForm.get('username')!.touched">
+        <div class="alert alert-danger" *ngIf="userForm.get('username')!.errors?.required">El campo es obligatorio.</div>
+        <div class="alert alert-danger" *ngIf="userForm.get('username')!.errors?.minlength">El campo debe tener {{userForm.get('username')!.errors?.minlength.requiredLength}} caracteres al menos.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email: </label>
+      <input type="email" id="email" name="email" formControlName="email">
+    </div>
+
+    <h4>Address</h4>
+    <div formGroupName="address">
+      <div>
+        <label for="street">Street:
+          <input type="text" id="street" name="street" formControlName="street">
+        </label>
+      </div>
+      <div>
+        <label for="city">City:
+          <input type="text" id="city" name="city" formControlName="city">
+        </label>
+      </div>
+      <div>
+        <label for="zipcode">Zip Code:
+          <input type="text" id="zipcode" name="zipcode" formControlName="zipcode">
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+
+  </form>
+</div>
